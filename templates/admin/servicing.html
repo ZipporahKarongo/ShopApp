@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicing</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{{url_for('static',filename = 'css/styles.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <!-- sidebar -->
+    <div class="container-fluid">
+        <div class = "row flex-nowrap">
+            {% include 'sidebar.html'%}
+
+           <!-- Put navbar -->
+        <div class="col">
+         <hr>
+          {% include 'topbar.html' %}
+    <!-- Site Content -->
+             <div class="row">
+                 <div class="col-md-4 card p-4 shadow ms-3">
+                       <div id="successAlert2" class="alert bg-success text-white w-50 "></div>
+                        <div id="errorAlert2" class="alert bg-danger text-white w-50"></div>
+                        <div id="progress" class="alert bg-info text-white"></div>
+
+
+                     <form action="" id="service">
+                         <label for="reg_no">reg_no </label><br>
+                         <input type="text" id="reg_no" value="{{reg_no}}" disabled><br><br>
+                         <label for="date">Date</label><br>
+                         <input type="date" id="date" min="2022-03-10" class="form-control"><br>
+
+                         <label for="time">Time</label>
+                         <input type="time" id="time" min = "09:00" max="11:00" class="form-control"><br>
+
+                          <label for="services">Pick Services</label>
+                         <select  id="services" class="form-control" multiple>
+                             <option value="Oil Change">Oil Change</option>
+                             <option value="Wheel Alignment">Wheel Alignment</option>
+                               <option value="Wheel Repair">Wheel Repair</option>
+                             <option value="Other">Other</option>
+
+
+                         </select>
+                         <br>
+
+
+
+
+                         <input type="submit" value="Request Service" class="btn btn-warning">
+
+                     </form>
+
+
+                 </div>
+                 <br><br>
+                                  <div class="col-md-1  p-4 ms-5" >
+                                  </div>
+
+
+                     <br>
+             </div>
+         </div>
+
+
+        </div>
+        <!-- end of row -->
+    </div>
+<!--TODO inputing all the data to the database and use ajax and a search tab and send the email and sms that they have received a task-->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="{{url_for('static', filename='js/servicing.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

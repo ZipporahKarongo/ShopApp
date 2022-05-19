@@ -1,0 +1,16 @@
+
+#system{
+    color: rgb(52, 171, 235);
+    font-weight: bolder;
+    font-size: larger;
+}
+#horizontal {
+    border: rgb(252, 171, 235) 2px solid;
+    width: 100%;
+
+}
+.menu{
+    color: white;
+    font-size: medium;
+}
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+            <link rel="stylesheet" href="{{url_for('static',filename = 'css/styles.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+        <!-- sidebar -->
+    <div class="container-fluid">
+        <div class = "row flex-nowrap">
+            {% include 'sidebar.html'%}
+
+           <!-- Put navbar -->
+        <div class="col">
+         <hr>
+          {% include 'topbar.html' %}
+    <!-- Site Content -->
+             <div class="row p-2 " style="margin-left: 3%;">
+                  <div id="successAlert" style="color:green;"></div>
+                 <div id="errorAlert" style="color:red;"></div>
+                 <h5>Add Driver</h5>
+                 <form id="driver" class="row form-inline">
+                     <div class="col-md-6 card shadow p-4">
+                                <input type="text" id ="first_name" placeholder="Enter First Name" class="form-control" required> <br>
+                                 <input type="text" id ="last_name" placeholder="Enter Last Name" class="form-control" required> <br>
+                                    <input type="text" id ="surname" placeholder="Enter Surname" class="form-control" required> <br>
+                                     <label for="resid_id"><b>Residence</b></label><br>
+                         <select name="" id="resid_id" class="form-control">
+                                  {% for location in locations %}
+                                    <option value="{{location[0]}}">{{location[1]}}</option>
+                                      {% endfor%}
+                         </select>
+                            <br>
+                             <input type="text" id ="dl_no" placeholder="Enter DL-NO" class="form-control" required> <br>
+                                 <input type="text" id ="id_no" placeholder="Enter ID number" class="form-control" required> <br>
+
+                            <input type="text" id="psv_no" placeholder="Enter PSV no" class="form-control" required>
+                         <br>
+
+                     </div>
+
+                     <div class = "col-md-5 card shadow p-4" style="margin-left:1%">
+
+                         <label for="dob">DOB</label>
+                          <input type="date" id="dob" placeholder="Enter DOB" class="form-control" required>
+                         <br>
+                          <input type="email" id="email" placeholder="Enter Email" class="form-control" required>
+                         <br>
+                          <input type="tel" id="phone" placeholder="Enter Phone" class="form-control" required>
+                         <br>
+                         <label for="gender"><b>Gender</b></label>
+                         <div class="row">
+                             <div class="col-md-12">
+                                    <input type="radio" name="gender" id="gender" value="M">Male
+                                      <input type="radio" name="gender1" id="gender1" value="F"> Female
+
+                             </div>
+
+                         </div>
+                         <br>
+                         <label for="passport"><b>Driver Passport</b></label><br>
+                         <input type="file" id="passport" name="files[]" multiple="multiple"><br><br>
+
+                         <input type="submit" value="Add Driver" class="btn btn-warning">
+
+
+                     </div>
+
+
+
+                 </form>
+                 <br>
+
+<!--                 from here we create a JS file to receive the input by use of AJAX-->
+             </div>
+         </div>
+
+
+        </div>
+        <!-- end of row -->
+    </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="{{url_for('static', filename='js/adddriver.js')}}"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

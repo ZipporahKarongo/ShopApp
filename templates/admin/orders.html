@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{{url_for('static',filename = 'css/styles.css')}}">
+        <link rel="stylesheet" href="C:\Users\karzi\OneDrive\Desktop\Dashboard\font-awesome-4.7.0.zip\font-awesome-4.7.0\css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+    /*  removes the underline from the hypertext*/
+     #linkme a{
+            text-decoration: none;
+     }
+         /*  changes the color of the hyperlink when hovering*/
+
+      #linkme a#approveme:hover {
+          color: green;
+      }
+
+          #linkme a#declineme:hover {
+          color: red;
+      }
+
+    </style>
+
+</head>
+<body>
+    <!-- sidebar -->
+    <div class="container-fluid">
+        <div class = "row flex-nowrap">
+            {% include 'sidebar.html'%}
+
+           <!-- Put navbar -->
+        <div class="col">
+         <hr>
+          {% include 'topbar.html' %}
+    <!-- Site Content -->
+             <div class="row">
+                 <div class="col-md-12 p-4 card shadow" style="margin:2%">
+                     <form action="/orders" method="post">
+
+                         <input type="text" name="code" placeholder="Enter order code">
+                         <input type="submit" value="Search" class="btn btn-info btn-sm">
+                                              <a href="/orders">Reload</a>
+
+                     </form>
+                     {% if message %}
+
+                     {{message}}<br>
+                     <a href="/orders">Reload</a>
+                     {% endif%}
+
+                     {% for order in list %}
+<!--                     {{order}}-->
+                     <h5>Order Code:{{order[0][7]}}</h5>
+                     <span id="linkme"><a id="approveme" href="/approve_order/{{order[0][7]}}"onclick="return confirm('Are you sure?')" style="margin-right:10px;" class="badge bg-secondary rounded-pil col-sm-4"> Approve Order</a><a id="declineme" href="/decline_order/{{order[0][7]}}"onclick="return confirm('Are you sure?')" class="badge bg-secondary rounded-pil col-sm-4"> Decline Order</a></span>
+
+                         <table class="table">
+                         <tr>
+                             <th>PID</th>
+                             <th>Oty</th>
+                             <th>Unit Price</th>
+                             <th>Total</th>
+                             <th>Status</th>
+
+
+                         </tr>
+                         {% for item in order%}
+                         <tr>
+
+                             <td>{{item[2]}}</td>
+                             <td>{{item[3]}}</td>
+                             <td>{{item[4]}}</td>
+                             <td>{{item[5]}}</td>
+
+                             {% if item[6] == 'pending' %}
+                             <td><span class="badge bg-info rounded-pill">{{item[6]}}</span></td>
+                             {% elif item[6] == 'approved' %}
+                             <td><span class="badge bg-success rounded-pill">{{item[6]}}</span></td>
+                             {% else %}
+                             <td><span class="badge bg-danger rounded-pill">{{item[6]}}</span></td>
+                             {% endif %}
+
+
+                         </tr>
+                             {% endfor %}
+
+
+
+                     </table>
+                     {% endfor %}
+
+
+
+
+                 </div>
+             </div>
+         </div>
+
+
+        </div>
+        <!-- end of row -->
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

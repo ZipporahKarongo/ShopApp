@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{{url_for('static',filename = 'css/styles.css')}}">
+        <link rel="stylesheet" href="C:\Users\karzi\OneDrive\Desktop\Dashboard\font-awesome-4.7.0.zip\font-awesome-4.7.0\css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <!-- sidebar -->
+    <div class="container-fluid">
+        <div class = "row flex-nowrap">
+            {% include 'sidebar.html'%}
+
+           <!-- Put navbar -->
+        <div class="col">
+         <hr>
+          {% include 'topbar.html' %}
+    <!-- Site Content -->
+         <div class="row">
+                 <div class="col-md-12 p-4 card shadow" style="margin:2%">
+                     {% with messages = get_flashed_messages(with_categories=true) %}
+                          {% if messages %}
+                            <ul class=flashes>
+                            {% for category, message in messages %}
+                              <li class="{{ category }}">{{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                          {% endif %}
+                     {% endwith %}
+                     <form action="/deallocate" method="post">
+
+                         <input type="text" name="param" placeholder="Enter reg no/ driver id">
+                         <input type="submit" value="Search" class="btn btn-warning btn-sm">
+                     </form>
+                     {% if message %}
+
+                     {{message}}<br>
+                     <a href="/deallocate">Reload</a>
+                     {% endif%}
+
+                     {% if rows%}
+                     <table class="table">
+
+                         <tr>
+
+                              <th>Allocate Id</th>
+                              <th>Reg no</th>
+                             <th> Driver ID</th>
+                             <th> Driver Name</th>
+
+                             <th> Allocation date</th>
+
+                         </tr>
+
+                              {% for row in rows %}
+
+                         <tr>
+                             <td>{{row[0]}}</td>
+                               <td>{{row[1]}}</td>
+                             <td>{{row[2]}} </td>
+                               <td>
+                                   {% for driver in drivers %}
+                                     {% if driver[0] == row[2] %}
+                                        {{driver[2]}}
+                                      {% endif%}
+                                   {% endfor%}
+
+                               </td>
+                               <td>{{row[4]}}</td>
+
+                              <td>
+<!--                                this is for adding a task to the driver-->
+<!--                                  the{{[2]}} passes the driver id to be allocated to a task ( it is the index of the driver id in the  ` vehicle allocation `database )-->
+
+
+                                  <a href="/assigning/{{row[2]}},{{row[1]}}" data-toggle="tooltip" title="Assign Task">
+                                     <i class="bi bi-file-plus-fill" ></i>
+                                 </a>
+
+                             </td>
+
+
+                             <td>
+<!--                                 deallocating the driver from the vehicle making the status in the db from true to false-->
+                                 <a href="/remove_allocation/{{row[0]}}" data-toggle="tooltip" title="Deallocate Driver">
+                                     <i class="bi bi-eraser-fill fs-5" onclick="return confirm('Are you sure?')"></i>
+                                 </a>
+                             </td>
+
+                              <td>
+<!--                                  servicing a vehicle-->
+                                 <a href="/servicing/{{row[1]}}" data-toggle="tooltip" title="Send Car to servicing">
+                                     <i class="bi bi-tools" onclick="return confirm('Are you sure?')"></i>
+                                 </a>
+                             </td>
+                         </tr>
+
+                     {% endfor %}
+
+                     </table>
+                       {% endif %}
+
+
+                 </div>
+             </div>
+         </div>
+
+
+        </div>
+        <!-- end of row -->
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+

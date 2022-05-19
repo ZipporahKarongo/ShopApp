@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{{url_for('static',filename = 'css/styles.css')}}">
+        <link rel="stylesheet" href="C:\Users\karzi\OneDrive\Desktop\Dashboard\font-awesome-4.7.0.zip\font-awesome-4.7.0\css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <!-- sidebar -->
+    <div class="container-fluid">
+        <div class = "row flex-nowrap">
+            {% include 'sidebar.html'%}
+
+           <!-- Put navbar -->
+        <div class="col">
+         <hr>
+          {% include 'topbar.html' %}
+    <!-- Site Content -->
+             <div class="row">
+                 <div class="col-md-12 p-4 card shadow" style="margin:2%">
+
+                        <form action="/payments_report" method="post">
+
+                         <input type="text" name="reg_no" placeholder="Enter Reg No">
+                         <input type="submit" value="Search" class="btn btn-warning btn-sm">
+                     </form>
+                     <h4><u>Assignments</u>  </h4>
+<!--these are the assignments done by that particular reg no-->
+                     <table class="table table-striped">
+
+                         <tr>
+                             <th>Assign Id</th>
+                             <th>Assign date</th>
+                             <th>Assign Time</th>
+                             <th>Assign From</th>
+                             <th>Assign To</th>
+                         </tr>
+                         {% for row in rows%}
+                         <tr>
+                             <td>{{row[0]}}</td>
+                             <td>{{row[1]}}</td>
+                             <td>{{row[2]}}</td>
+                             <td>{{row[3]}}</td>
+                             <td>{{row[4]}}</td>
+                         </tr>
+                         {%endfor%}
+                     </table>
+<!--                     {{list}}-->
+                     <br><br>
+                     <h4><u>Income</u> </h4>
+                     <table class="table table-striped">
+                     <tr>
+                         <th>Trip Income</th>
+                         <th> Fuel</th>
+                         <th> Driver pay</th>
+                         <th>  Additional</th>
+                         <th> Profit </th>
+                         <th> Date </th>
+
+
+                     </tr>
+<!--                         These are the charges in each assignment-->
+                     {% for row in list %}
+                     <tr>
+                         <td>{{row[2]}}</td>
+                         <td>{{row[3]}}</td>
+                         <td>{{row[4]}}</td>
+                         <td>{{row[5]}} -  {{row[6]}}</td>
+                         <td>{{row[7]}}</td>
+                         <td>{{row[8]}}</td>
+                         <td>{{row[9]}}</td>
+
+                     </tr>
+                                              {%endfor%}
+
+                     </table>
+                     <br><br>
+                     Total profit              {{total_profit}} KES<br>
+                     fuel used       {{total_fuel_used}} KES <br>
+                     Total driver pay      {{total_driver_pay}} KES <br>
+
+
+
+
+
+                 </div>
+             </div>
+         </div>
+
+
+        </div>
+        <!-- end of row -->
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>
