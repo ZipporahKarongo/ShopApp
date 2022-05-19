@@ -130,3 +130,15 @@ def randomno():
     final_numbers = "".join(randomnumbers)
     return final_numbers
 
+
+def randomnumber():
+    length = 6
+    lower = string.ascii_lowercase
+    upper = string.ascii_uppercase
+    num = string.digits
+    together = lower + upper + num
+
+    randomnumbers = random.sample(together, length)
+
+    final_numbers = "".join(randomnumbers)
+    return final_numbers
